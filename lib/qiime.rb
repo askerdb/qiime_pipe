@@ -24,11 +24,11 @@ module Qiime
           script, leftover = line.split ':'
           option, value    = leftover.split /\s+/
 
-          cmd_name = command
+          cmd_name = command.chomp(File.extname(command))
           if (command.index('/') != nil) 
-            cmd_name = command.chomp(File.extname(command)).split("/")[-1][0]
+            cmd_name = command.chomp(File.extname(command)).split("/")[-1]
           end
-          if script =~ /#{cmd_name}/
+          if (script.index(cmd_name) != nil)
              ret = ret + " --" + option + " " + value + " "  
           end
         end
